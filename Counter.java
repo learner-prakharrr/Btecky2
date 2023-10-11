@@ -1,55 +1,35 @@
-
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Counter
-{   
-    public static void main(String[] args)
-    {
-        BufferedReader reader = null;
-        int charCount = 0;
-        int wordCount = 0;
-        int lineCount = 0;
-         
-        try
-        {
-            reader = new BufferedReader(new FileReader("D:\\new.txt"));
-            String currentLine = reader.readLine();
-            while (currentLine != null)
-            {
+public class Counter {
+    public static void main(String[] args) {
+        // Initialize counts
+        int charCount = 0, wordCount = 0, lineCount = 0;
 
+        try (BufferedReader reader = new BufferedReader(new FileReader("D:\\new.txt"))) {
+            String currentLine;
+
+            // Read each line
+            while ((currentLine = reader.readLine()) != null) {
                 lineCount++;
+
+                // Split the line into words
                 String[] words = currentLine.split(" ");
-                wordCount = wordCount + words.length;
-                 
-                for (String word : words)
-                {
-                    charCount = charCount + word.length();
+                wordCount += words.length;
+
+                // Count characters in each word
+                for (String word : words) {
+                    charCount += word.length();
                 }
-                 currentLine = reader.readLine();
             }
-             System.out.println("Number of character in file : "+charCount);
-             System.out.println("Number of words in a file : "+wordCount);
-             System.out.println("Number of lines in file : "+lineCount);
-        }
-        catch (IOException e)
-        {
+
+            // Print the counts
+            System.out.println("Number of characters in file: " + charCount);
+            System.out.println("Number of words in file: " + wordCount);
+            System.out.println("Number of lines in file: " + lineCount);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        finally
-        {
-            try
-            {
-                reader.close();          
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }    
+    }
 }
-
-
